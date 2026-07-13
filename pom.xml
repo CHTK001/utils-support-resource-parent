@@ -13,7 +13,7 @@
     <modules>
         <module>utils-support-resource-emoji</module>
         <module>utils-support-resource-pinyin</module>
-        <module>utils-support-resource-geo</module>
+        <module>utils-support-resource-ip2region</module>
         <module>utils-support-resource-geonames</module>
     </modules>
 
