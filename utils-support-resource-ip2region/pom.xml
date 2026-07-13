@@ -8,7 +8,7 @@
         <artifactId>utils-support-resource-parent</artifactId>
         <version>4.0.0.42</version>
     </parent>
-    <artifactId>utils-support-resource-geo</artifactId>
+    <artifactId>utils-support-resource-ip2region</artifactId>
     <packaging>jar</packaging>
-    <description>纯真 IP 数据库（qqwry.dat）+ 地名数据，共约 52MB</description>
+    <description>ip2region IPv4 定位数据库（11MB）+ 纯真 IP 数据库 qqwry.dat（26MB）</description>
 </project>
