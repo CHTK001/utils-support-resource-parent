@@ -13,6 +13,7 @@
     <modules>
         <module>utils-support-resource-emoji</module>
         <module>utils-support-resource-pinyin</module>
+        <module>utils-support-resource-geo</module>
     </modules>
 
     <distributionManagement>
