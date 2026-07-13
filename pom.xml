@@ -6,7 +6,7 @@
 
     <groupId>com.chua</groupId>
     <artifactId>utils-support-resource-parent</artifactId>
-    <version>4.0.0.41</version>
+    <version>4.0.0.42</version>
     <packaging>pom</packaging>
     <description>大体积数据文件分发仓库（词典、模型等），通过 Maven 依赖引用</description>
 
