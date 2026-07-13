@@ -10,5 +10,5 @@
     </parent>
     <artifactId>utils-support-resource-ip2region</artifactId>
     <packaging>jar</packaging>
-    <description>ip2region IPv4 定位数据库（11MB）+ 纯真 IP 数据库 qqwry.dat（26MB）</description>
+    <description>ip2region IPv4 定位数据库（ip2region.xdb），约 11MB</description>
 </project>
