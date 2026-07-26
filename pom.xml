@@ -16,6 +16,7 @@
         <module>utils-support-resource-ip2region</module>
         <module>utils-support-resource-qqwry</module>
         <module>utils-support-resource-geonames</module>
+        <module>utils-support-resource-geolite2</module>
     </modules>
 
     <distributionManagement>
