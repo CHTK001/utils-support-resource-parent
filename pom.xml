@@ -1,43 +1,33 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>com.chua</groupId>
-        <artifactId>utils-support-parent-starter</artifactId>
-        <version>4.0.0.42</version>
-        <relativePath>../pom.xml</relativePath>
-    </parent>
+
+    <groupId>com.chua</groupId>
     <artifactId>utils-support-resource-parent</artifactId>
+    <version>4.0.0.42</version>
     <packaging>pom</packaging>
-    <name>Utils Support Resource Parent</name>
-    <description>通用资源数据父模块（IP 库、模型、guacd 等大资源文件）。</description>
+    <description>大体积数据文件分发仓库（词典、模型等），通过 Maven 依赖引用</description>
+
     <modules>
+        <module>utils-support-resource-emoji</module>
+        <module>utils-support-resource-pinyin</module>
+        <module>utils-support-resource-ip2region</module>
+        <module>utils-support-resource-qqwry</module>
+        <module>utils-support-resource-geonames</module>
+        <module>utils-support-resource-geolite2</module>
         <module>utils-support-resource-guacd</module>
     </modules>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <release>25</release>
-                    <compilerArgs>
-                        <arg>--add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED</arg>
-                        <arg>--add-opens=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED</arg>
-                        <arg>--add-opens=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED</arg>
-                        <arg>--add-opens=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED</arg>
-                    </compilerArgs>
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                            <version>${lombok.version}</version>
-                        </path>
-                    </annotationProcessorPaths>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+
+    <distributionManagement>
+        <repository>
+            <id>2676178-release-jmLEdB</id>
+            <url>https://packages.aliyun.com/6a62fa1d287d37b037a68ee8/maven/2676178-release-jmledb</url>
+        </repository>
+        <snapshotRepository>
+            <id>2676178-snapshot-FwAJpk</id>
+            <url>https://packages.aliyun.com/6a62fa1d287d37b037a68ee8/maven/2676178-snapshot-fwajpk</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
