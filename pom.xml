@@ -17,6 +17,7 @@
         <module>utils-support-resource-qqwry</module>
         <module>utils-support-resource-geonames</module>
         <module>utils-support-resource-geolite2</module>
+        <module>utils-support-resource-filestorage</module>
     </modules>
 
     <distributionManagement>
