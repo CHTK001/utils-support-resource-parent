@@ -18,6 +18,7 @@
         <module>utils-support-resource-geonames</module>
         <module>utils-support-resource-geolite2</module>
         <module>utils-support-resource-filestorage</module>
+        <module>utils-support-resource-vnc</module>
     </modules>
 
     <distributionManagement>
