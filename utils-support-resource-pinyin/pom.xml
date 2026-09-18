@@ -9,6 +9,7 @@
         <version>4.0.0.42</version>
     </parent>
     <artifactId>utils-support-resource-pinyin</artifactId>
+    <packaging>jar</packaging>
     <name>Utils Support Resource Pinyin</name>
     <description>拼音数据文件（chinese.dict.xz, pinyin.dict.xz 等）</description>
 </project>

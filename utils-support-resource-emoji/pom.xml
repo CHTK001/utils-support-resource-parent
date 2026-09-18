@@ -9,6 +9,7 @@
         <version>4.0.0.42</version>
     </parent>
     <artifactId>utils-support-resource-emoji</artifactId>
+    <packaging>jar</packaging>
     <name>Utils Support Resource Emoji</name>
     <description>Emoji 数据文件（emoji.json.xz）</description>
 </project>
