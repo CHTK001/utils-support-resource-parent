@@ -10,6 +10,10 @@
     <packaging>pom</packaging>
     <description>大体积数据文件分发仓库（词典、模型等），通过 Maven 依赖引用</description>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <modules>
         <module>utils-support-resource-emoji</module>
         <module>utils-support-resource-pinyin</module>
@@ -20,6 +24,23 @@
         <module>utils-support-resource-filestorage</module>
         <module>utils-support-resource-vnc</module>
     </modules>
+
+    <repositories>
+        <repository>
+            <id>2676178-release-jmLEdB</id>
+            <name>Aliyun Packages Release</name>
+            <url>https://packages.aliyun.com/6a62fa1d287d37b037a68ee8/maven/2676178-release-jmledb</url>
+            <releases><enabled>true</enabled></releases>
+            <snapshots><enabled>false</enabled></snapshots>
+        </repository>
+        <repository>
+            <id>2676178-snapshot-FwAJpk</id>
+            <name>Aliyun Packages Snapshot</name>
+            <url>https://packages.aliyun.com/6a62fa1d287d37b037a68ee8/maven/2676178-snapshot-fwajpk</url>
+            <releases><enabled>true</enabled></releases>
+            <snapshots><enabled>true</enabled></snapshots>
+        </repository>
+    </repositories>
 
     <distributionManagement>
         <repository>
