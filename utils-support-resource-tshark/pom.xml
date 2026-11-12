@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.chua</groupId>
+        <artifactId>utils-support-resource-parent</artifactId>
+        <version>4.0.0.43</version>
+    </parent>
+    <artifactId>utils-support-resource-tshark</artifactId>
+    <packaging>jar</packaging>
+    <name>Utils Support Resource Tshark</name>
+    <description>
+        tshark 便携包资源（按平台）：resources/tshark/&lt;os&gt;-&lt;arch&gt;/tshark-package.*。
+        monitor 在无外网时从这里取包安装；目录为空时行为与没有本模块一致。
+    </description>
+</project>

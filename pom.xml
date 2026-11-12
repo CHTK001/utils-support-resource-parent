@@ -23,6 +23,7 @@
         <module>utils-support-resource-geolite2</module>
         <module>utils-support-resource-filestorage</module>
         <module>utils-support-resource-vnc</module>
+        <module>utils-support-resource-tshark</module>
     </modules>
 
     <repositories>
