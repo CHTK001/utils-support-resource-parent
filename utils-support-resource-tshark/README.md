@@ -33,8 +33,20 @@ src/main/resources/tshark/
 ## 优先级（monitor 侧）
 
 ```
-package-path(-平台)  >  本模块的 classpath 资源  >  package-url(-平台)
+package-path(-平台)  >  本模块的 classpath 资源  >  应用目录下的 tshark/<平台>/  >  package-url(-平台)
 ```
+
+## 不加依赖也能用
+
+不想让 monitor 背 41MB 依赖时，把 jar 里的资源解到应用工作目录即可：
+
+```bash
+unzip utils-support-resource-tshark-4.0.0.43.jar 'tshark/*' -d /opt/monitor
+# 结果：/opt/monitor/tshark/windows-x86_64/tshark-package.zip
+```
+
+monitor 启动时会先查 classpath，再查 `./tshark/<os>-<arch>/`，命中就直接解包装到
+`~/spring-support/tshark`，不需要重新打包、也不需要改依赖。
 
 ## 产物从哪来
 
