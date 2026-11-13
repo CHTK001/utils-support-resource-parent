@@ -14,9 +14,10 @@
     <packaging>jar</packaging>
     <name>Utils Support Resource RDP</name>
     <description>
-        RDP 直连原生桥的 Linux/macOS 运行库依赖（FreeRDP / WinPR / OpenSSL / X11 /
+        RDP 直连原生桥在 Linux/macOS 上的运行库资源（FreeRDP / WinPR / OpenSSL / X11 /
         PulseAudio / ffmpeg 等），按 native/rdp/&lt;platform&gt;/ 布局分发。
-        utils-support-native-rdp 只保留最小的 librdpj 动态库和 rdpj.index；
-        RdpjBridge 仍按 rdpj.index 从 classpath 解包，本模块提供同名资源。
+        本模块与 utils-support-native-rdp 是并列关系、不是依赖：native 侧只保留最小的
+        librdpj 动态库和 rdpj.index，部署时把本 jar 一并放进 classpath，RdpjBridge 按
+        rdpj.index 解包同名资源；不部署时仅 POSIX 平台缺少运行库。
     </description>
 </project>
