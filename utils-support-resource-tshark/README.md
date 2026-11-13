@@ -10,8 +10,8 @@ tshark 便携包**资源**（按平台），供 monitor 在无外网环境安装
 ```
 src/main/resources/tshark/
   windows-x86_64/tshark-package.zip      # 已内置（见下）
-  linux-x86_64/                          # 待放：deb / tar.xz / tar.gz
-  darwin-aarch64/
+  linux-x86_64/tshark-package.tar.xz     # 已内置（见下）
+  darwin-aarch64/                        # 待放（GitHub macOS runner 当前不可用）
   darwin-x86_64/
 ```
 
@@ -26,6 +26,19 @@ src/main/resources/tshark/
 | 排除 | `Wireshark.exe`、Qt6*、opengl32sw、dxcompiler/dxil/d3dcompiler、WinSparkle（GUI 专用，tshark 不需要） |
 
 实测链路：资源取包 → 解压 59 个文件 → 找到 `tshark.exe` → 版本 `4.4.19` → `-D` 列出网卡（有 Npcap 时 `captureReady=true`）。
+
+## 已内置：Linux x86_64 包（GitHub Actions 打出）
+
+| 项 | 值 |
+|---|---|
+| 构建 | `ubuntu-22.04` 上 apt 安装 tshark，收集 `tshark`/`dumpcap` 与全部 `ldd` 依赖，`patchelf` 写 RPATH `$ORIGIN/../lib` |
+| 大小 | 30.3 MB（解压 160 MB） |
+| sha256 | `3e7b82ebd10c7bef7505e4543f1c8fd32a491dffee3f83929fdde602a4bd481b` |
+| 结构 | `usr/bin/tshark`、`usr/bin/dumpcap`、`usr/lib/*.so*` |
+| 验证 | CI 里解包后直接跑 `tshark --version`（不依赖系统库）通过；glibc 基线为 Ubuntu 22.04（2.35） |
+
+macOS 两个目录仍为空：GitHub 免费额度下 macOS runner 一启动就被取消（job 无任何 step），
+需要配置 macOS 分钟数或用自托管 runner 才能产出。
 
 目录为空时 monitor 的 `bundledPackage()` 返回 null，继续走 `package-url` /
 `package-path`，行为与没有本模块一致。
