@@ -1,13 +1,10 @@
 name: tshark-packages
 
-# 在 GitHub 的原生 runner 上各打一份 tshark 便携包，产物发到 Release（tshark-bundles）。
+# 在 GitHub 的原生 runner 上各打一份 tshark 便携包，产物直接发到 Release(tshark-bundles)。
 # 为什么不在 Windows 上"交叉编译"：tshark 是 native 程序，Linux/macOS 的依赖（glibc、
 # dylib、rpath）只能在对应系统上取，跨平台打包必然跑不起来。
 #
-# 产物命名与资源模块约定一致：
-#   tshark-package-linux-x86_64.tar.xz   -> tshark/usr/bin/tshark（rpath 指向 ../lib）
-#   tshark-package-darwin-aarch64.tar.gz -> Wireshark.app/Contents/MacOS/tshark
-#   tshark-package-darwin-x86_64.tar.gz
+# 每个平台各自上传自己的资产，互不阻塞：macOS runner 不可用时，Linux 照样出包。
 
 on:
   workflow_dispatch:
@@ -32,7 +29,6 @@ jobs:
           mkdir -p bundle/usr/bin bundle/usr/lib
           cp "$(command -v tshark)" bundle/usr/bin/tshark
           cp "$(command -v dumpcap)" bundle/usr/bin/dumpcap || true
-          # 收集直接依赖，再把依赖的依赖补齐（最多 3 轮）
           for i in 1 2 3; do
             find bundle/usr/bin -type f -exec ldd {} + 2>/dev/null | awk '{print $3}' | grep '^/' | sort -u | while read -r lib; do
               [ -f "bundle/usr/lib/$(basename "$lib")" ] || cp -L "$lib" bundle/usr/lib/
@@ -41,7 +37,6 @@ jobs:
               [ -f "bundle/usr/lib/$(basename "$lib")" ] || cp -L "$lib" bundle/usr/lib/
             done
           done
-          # RPATH（不是 RUNPATH）才能覆盖传递依赖
           for f in bundle/usr/bin/*; do
             patchelf --force-rpath --set-rpath '$ORIGIN/../lib' "$f"
           done
@@ -52,17 +47,22 @@ jobs:
           set -euo pipefail
           mkdir -p /tmp/smoke && tar -xf tshark-package-linux-x86_64.tar.xz -C /tmp/smoke
           /tmp/smoke/usr/bin/tshark --version | head -1
-      - uses: actions/upload-artifact@v4
+      - name: Release (linux)
+        uses: softprops/action-gh-release@v2
         with:
-          name: linux-x86_64
-          path: tshark-package-linux-x86_64.tar.xz
+          tag_name: tshark-bundles
+          name: tshark bundles
+          body: |
+            各平台 tshark 便携包（GitHub 原生 runner 打出）。
+            放到 utils-support-resource-tshark 的对应目录即可。
+          files: tshark-package-linux-x86_64.tar.xz
+          fail_on_unmatched_files: false
 
   darwin-arm64:
     runs-on: macos-14
     steps:
       - name: Install Wireshark (cask)
-        run: |
-          brew install --cask wireshark
+        run: brew install --cask wireshark
       - name: Bundle app
         run: |
           set -euo pipefail
@@ -71,49 +71,10 @@ jobs:
           ls -lh tshark-package-darwin-aarch64.tar.gz
       - name: Smoke test
         run: /Applications/Wireshark.app/Contents/MacOS/tshark --version | head -1
-      - uses: actions/upload-artifact@v4
-        with:
-          name: darwin-aarch64
-          path: tshark-package-darwin-aarch64.tar.gz
-
-  darwin-x64:
-    runs-on: macos-13
-    steps:
-      - name: Install Wireshark (cask)
-        run: |
-          brew install --cask wireshark
-      - name: Bundle app
-        run: |
-          set -euo pipefail
-          test -x "/Applications/Wireshark.app/Contents/MacOS/tshark"
-          tar -czf tshark-package-darwin-x86_64.tar.gz -C /Applications Wireshark.app
-          ls -lh tshark-package-darwin-x86_64.tar.gz
-      - name: Smoke test
-        run: /Applications/Wireshark.app/Contents/MacOS/tshark --version | head -1
-      - uses: actions/upload-artifact@v4
-        with:
-          name: darwin-x86_64
-          path: tshark-package-darwin-x86_64.tar.gz
-
-  release:
-    needs: [linux, darwin-arm64, darwin-x64]
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          path: dist
-      - name: Flatten
-        run: |
-          find dist -type f -exec cp {} . \;
-          ls -lh tshark-package-*
-      - uses: softprops/action-gh-release@v2
+      - name: Release (darwin arm64)
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: tshark-bundles
           name: tshark bundles
-          body: |
-            各平台 tshark 便携包（由 GitHub Actions 原生 runner 打出）。
-            放到 utils-support-resource-tshark 的对应目录即可。
-          files: |
-            tshark-package-linux-x86_64.tar.xz
-            tshark-package-darwin-aarch64.tar.gz
-            tshark-package-darwin-x86_64.tar.gz
+          files: tshark-package-darwin-aarch64.tar.gz
+          fail_on_unmatched_files: false
