@@ -9,11 +9,23 @@ tshark 便携包**资源**（按平台），供 monitor 在无外网环境安装
 
 ```
 src/main/resources/tshark/
-  windows-x86_64/tshark-package.zip
-  linux-x86_64/tshark-package.deb        # 或 tshark-package.tar.xz / .tar.gz
-  darwin-aarch64/tshark-package.tar.gz
-  darwin-x86_64/tshark-package.tar.gz
+  windows-x86_64/tshark-package.zip      # 已内置（见下）
+  linux-x86_64/                          # 待放：deb / tar.xz / tar.gz
+  darwin-aarch64/
+  darwin-x86_64/
 ```
+
+## 已内置：Windows 精简包
+
+| 项 | 值 |
+|---|---|
+| 版本 | TShark (Wireshark) 4.4.19 |
+| 大小 | 41.3 MB（解压 134.6 MB） |
+| sha256 | `e9143e53a70010099d9f67fbff0f10e6a82297d1abbee1e22e70381657ab2944` |
+| 内容 | `tshark.exe`、`dumpcap.exe`、全部非 GUI 依赖 DLL（libwireshark/libwiretap/libwsutil/glib/gcrypt/gnutls/…）、`tls` 与 `protobuf` 插件目录 |
+| 排除 | `Wireshark.exe`、Qt6*、opengl32sw、dxcompiler/dxil/d3dcompiler、WinSparkle（GUI 专用，tshark 不需要） |
+
+实测链路：资源取包 → 解压 59 个文件 → 找到 `tshark.exe` → 版本 `4.4.19` → `-D` 列出网卡（有 Npcap 时 `captureReady=true`）。
 
 目录为空时 monitor 的 `bundledPackage()` 返回 null，继续走 `package-url` /
 `package-path`，行为与没有本模块一致。
